@@ -1,42 +1,39 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int N, M, a, b;
 
-//DFS 준비물(인접행렬 방식)
-int graph[101][101] = { 0 };
+//DFS 준비물(연결리스트 방식)
 int visited[101] = { 0 };
+//연결리스트
+vector<int> list[101];
 
 void Insert_And_Init() {
 	int x, y;
 
 	cin >> N >> a >> b >> M;
-	for (int i = 0; i < M; i++){
+	for (int i = 0; i < M; i++) {
 		cin >> x >> y;
-		graph[x][y] = 1;
-		graph[y][x] = 1;
+		list[x].push_back(y);
+		list[y].push_back(x);
 	}
 }
 
-bool CanGo(int y, int x) {
-	if (graph[y][x]==1 && y != x && visited[x] == 0) return true;
-	return false;
-}
-
-void DFS(int idx,int cnt) {
+void DFS(int idx, int cnt) {
 	visited[idx] = cnt;
 
-	for (int i = 1; i <= N; i++){
-		if (CanGo(idx, i)) DFS(i, cnt + 1);
+	for (int i = 0; i < list[idx].size(); i++){
+		if (visited[list[idx][i]] == 0) DFS(list[idx][i], cnt + 1);
 	}
 }
 
 void Caluclate() {
 	//DFS 돌리기
-	DFS(a,1);
+	DFS(a, 1);
 
 	//b에 방문 했으면 값 출력
-	if (visited[b] != 0) cout << visited[b] -1;
+	if (visited[b] != 0) cout << visited[b] - 1;
 	else cout << -1;
 }
 
