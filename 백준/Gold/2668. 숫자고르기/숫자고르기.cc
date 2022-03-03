@@ -1,72 +1,56 @@
 #include <iostream>
-#include <vector>
 #include <set>
 #include <string.h>
 using namespace std;
 
 int N;
+//출발지 정보
+int start;
 
-//윗줄 아랫줄 거쳐간 인덱스 담을 set
-set<int> src;
-set<int> dest;
-set<int>::iterator iter;
-set<int>::iterator iter2;
-//정답을 담고 있는 set
+//정답 idx를 담을 set (iter로 꺼내면 자동 오름차순이라 set 씀, 중복방지도 되고 1석2조)
 set<int> result;
 
-//DFS
+//DFS 재료
 int graph[101] = { 0 };
 bool visited[101] = { false };
 
 void Insert_And_Init() {
 	cin >> N;
-	//번호 i 아래 뭐 적혀 있는지
+	//번호 i 아래 뭐 적혀 있는지만 저장하면 됨
 	for (int i = 1; i <= N; i++) cin >> graph[i];
 }
 
-bool IsAllVisited() {
-	if (src.size() != dest.size()) return false;
-
-	iter2 = dest.begin();
-	for (iter = src.begin(); iter != src.end(); iter++, iter2++) if (*iter != *iter2) return false;
-	for (iter = src.begin(); iter != src.end(); iter++) if (!visited[*iter]) return false;
-	
-	return true;
-}
-
 void Addresult() {
-	for (iter = src.begin(); iter != src.end(); iter++) result.insert(*iter);
+	//방문한곳 다 쳐넣기
+	for (int i = 0; i < 101; i++) if (visited[i] == true) result.insert(i);
 }
 
 void DFS(int idx) {
 	//내 위치 방문처리
 	visited[idx] = true;
 
-	src.insert(idx);
-	dest.insert(graph[idx]);
-
 	//다음 위치 방문 안했으면 못먹어도 고
 	if (!visited[graph[idx]]) DFS(graph[idx]);
 	//이미 방문 한 곳이면
 	else {
-		//모든 윗줄 방문 했으면 결과에 포함
-		if (IsAllVisited()) Addresult();
+		//시작 idx이면 결과 set에 넣기
+		if (graph[idx] == start) Addresult();
 	}
 }
 
 void Caluclate() {
-	// case 1. 모든 정수 DFS
+	// 모든 값 DFS
 	for (int i = 0; i < N; i++){
-		DFS(i + 1);
-		src.clear();
-		dest.clear();
-
+		start = i + 1;
+		//이미 결과값에 있으면 굳이 할 필요 없음
+		if(!result.count(start)) DFS(start);
+		//visited 초기화
 		memset(visited, false, sizeof(visited));
 	}
 
 	//출력
 	cout << result.size() << "\n";
-	for (iter = result.begin(); iter != result.end(); iter++) cout << *iter << "\n";
+	for (auto iter = result.begin(); iter != result.end(); iter++) cout << *iter << "\n";
 }
 
 int main() {
