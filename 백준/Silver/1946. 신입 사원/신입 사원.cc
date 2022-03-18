@@ -1,33 +1,28 @@
 #include <iostream>
 #include <algorithm>
-#include <queue>
 using namespace std;
 
 typedef pair<int, int> p;
 
-int T, N;
-priority_queue<p, vector<p>, greater<p>> pq;
+p arr[100001];
+int T, N, min_second, cnt;
 
 void Insert_And_Init() {
 	cin >> T;
 }
 
-void Caluclate(){
-	int s, m;
+void Calculate() {
 	for (int i = 0; i < T; i++){
 		cin >> N;
-		for (int j = 0; j < N; j++){
-			cin >> s >> m;
-			pq.push(make_pair(s, m));
-		}
-		int rank = pq.top().second; pq.pop();
-		int cnt = 1;
-		while (!pq.empty()) {
-			if (rank > pq.top().second) {
+		for (int j = 0; j < N; j++) cin >> arr[j].first >> arr[j].second;
+		sort(arr, arr + N);
+		cnt = 1;
+		min_second = arr[0].second;
+		for (int j = 1; j < N; j++) {
+			if (min_second > arr[j].second) {
+				min_second = arr[j].second;
 				cnt++;
-				rank = pq.top().second;
 			}
-			pq.pop();
 		}
 		cout << cnt << "\n";
 	}
@@ -38,5 +33,5 @@ int main() {
 
 	Insert_And_Init();
 
-	Caluclate();
+	Calculate();
 }
