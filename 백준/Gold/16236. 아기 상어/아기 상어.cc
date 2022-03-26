@@ -14,7 +14,7 @@ int close_y = -1, close_x = -1, close_len = 999;
 //아기 상어 정보
 int baby_size = 2, baby_y, baby_x, eat_cnt = 0;
 
-//일단 BFS
+//BFS
 int visited[21][21] = { false };
 queue<p> que;
 int dp[4][2] = { {1,0},{0,-1},{-1,0},{0,1} };
@@ -37,11 +37,6 @@ bool CanGo(int y, int x) {
 	return false;
 }
 
-bool CanEat(int y,int x) {
-	if (map[y][x] < baby_size && map[y][x] != 0 && map[y][x] != 9) return true;
-	return false;
-}
-
 void BFS() {
 	visited[baby_y][baby_x] = 0;
 	que.push(make_pair(baby_y, baby_x));
@@ -54,17 +49,8 @@ void BFS() {
 			int nextX = cur.second + dp[i][1];
 
 			if (CanGo(nextY, nextX)) {
-				/*
-				if (CanEat(nextY,nextX)) {
-					close_y = nextY;
-					close_x = nextX;
-					close_len = visited[cur.first][cur.second] + 1;
-					return;
-				}*/
-				//else {
-					visited[nextY][nextX] = visited[cur.first][cur.second] + 1;
-					que.push(make_pair(nextY, nextX));
-				//}
+				visited[nextY][nextX] = visited[cur.first][cur.second] + 1;
+				que.push(make_pair(nextY, nextX));
 			}
 		}
 	}
@@ -92,21 +78,9 @@ void EatCloseFish() {
 	eat_cnt++;
 }
 
-void PrintAll() {
-	for (int i = 0; i < N; i++)
-	{
-		for (int j = 0; j < N; j++)
-		{
-			cout << map[i][j] << " ";
-		}
-		cout << "\n";
-	}
-	cout << "\n\n";
-}
-
 void Calculate() {
 	while (true){
-		//1. 먹을 수 있는 물고기 있는지 확인(여기서 탐색 이용?)
+		//1. 먹을 수 있는 물고기 있는지 확인
 		BFS();
 		
 		//2. 가장 가까운 물고기 확인
@@ -124,11 +98,9 @@ void Calculate() {
 			eat_cnt = 0;
 		}
 		
-		//5. 초기화?
+		//5. 초기화
 		memset(visited, 0, sizeof(visited));
 		close_x = -1; close_y = -1; close_len = 999;
-		while (!que.empty()) que.pop();
-		//PrintAll();
 	}
 
 	cout << totalSec;
