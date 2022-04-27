@@ -9,10 +9,8 @@ typedef pair<int, int> p;
 //기본 재료
 int N, L, R, unionCount;
 int A[51][51] = { 0 };
-//각 연합의 총 인구수
-int unionTotal[2601] = { 0 };
-//각 연합의 크기
-int unionSize[2601] = { 0 };
+//각 연합의 총 인구수, 크기
+int unionTotal[2501] = { 0 }, unionSize[2501] = { 0 };
 
 //BFS 재료
 int visited[51][51] = { 0 };
@@ -22,9 +20,7 @@ queue<p> que;
 void Input_And_Init() {
 	cin >> N >> L >> R;
 	for (int i = 0; i < N; i++){
-		for (int j = 0; j < N; j++){
-			cin >> A[i][j];
-		}
+		for (int j = 0; j < N; j++) cin >> A[i][j];
 	}
 }
 
@@ -34,10 +30,9 @@ bool CanGo(int y, int x, int gap) {
 }
 
 int BFS(int y, int x) {
-	unionSize[unionCount]++;
-
 	int totalPeople = A[y][x];
 
+	unionSize[unionCount] = 1;
 	visited[y][x] = unionCount;
 	que.push(make_pair(y, x));
 
@@ -47,7 +42,6 @@ int BFS(int y, int x) {
 		for (int i = 0; i < 4; i++){
 			int nextY = cur.first + dp[i][0];
 			int nextX = cur.second + dp[i][1];
-
 			int gap = abs(A[cur.first][cur.second] - A[nextY][nextX]);
 
 			if (CanGo(nextY, nextX, gap)) {
@@ -58,18 +52,15 @@ int BFS(int y, int x) {
 			}
 		}
 	}
-
 	return totalPeople;
 }
 
 void Calculate() {
 	int day = 0;
 
-	//인구 이동이 일어날 수 있는지
 	while (true) {
 		//연합의 수 초기화
 		unionCount = 1;
-
 		//1. 국경선 오픈 되는곳 찾기(모든 점에서 BFS)
 		for (int i = 0; i < N; i++){
 			for (int j = 0; j < N; j++){
@@ -80,26 +71,16 @@ void Calculate() {
 				}
 			}
 		}
-
 		//2. 연합이 안생기면 꺼져
 		if (unionCount-1 == (N * N)) break;
-
 		//3. 새로운 인구수 재정하기
 		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				A[i][j] = unionTotal[visited[i][j]] / unionSize[visited[i][j]];
-			}
+			for (int j = 0; j < N; j++) A[i][j] = unionTotal[visited[i][j]] / unionSize[visited[i][j]];
 		}
-
-		day++;
-
 		//초기화
-		memset(unionSize, 0, sizeof(unionSize));
 		memset(visited, 0, sizeof(visited));
-		memset(unionTotal, 0, sizeof(unionTotal));
+		day++;
 	}
-	
-	//이동한 날 출력
 	cout << day;
 }
 
