@@ -28,31 +28,6 @@ void Input_And_Init() {
 	}
 }
 
-bool CanMove() {
-	int gap1, gap2;
-	for (int i = 0; i < N; i++) {
-		for (int j = 0; j < N; j++) {
-			if (i == N - 1 && j == N - 1) continue;
-			else if (i == N - 1) {
-				gap2 = abs(A[i][j] - A[i][j + 1]);
-				if (gap2 >= L && gap2 <= R) return true;
-			}
-			else if (j == N - 1) {
-				gap1 = abs(A[i][j] - A[i + 1][j]);
-				if (gap1 >= L && gap1 <= R) return true;
-			}
-			else {
-				gap1 = abs(A[i][j] - A[i + 1][j]);
-				gap2 = abs(A[i][j] - A[i][j + 1]);
-
-				if (gap1 >= L && gap1 <= R) return true;
-				if (gap2 >= L && gap2 <= R) return true;
-			}
-		}
-	}
-	return false;
-}
-
 bool CanGo(int y, int x, int gap) {
 	if (y >= 0 && x >= 0 && y < N && x < N && visited[y][x] == 0 && gap >= L && gap <= R) return true;
 	return false;
@@ -91,7 +66,7 @@ void Calculate() {
 	int day = 0;
 
 	//인구 이동이 일어날 수 있는지
-	while (CanMove()) {
+	while (true) {
 		//연합의 수 초기화
 		unionCount = 1;
 
@@ -105,6 +80,9 @@ void Calculate() {
 				}
 			}
 		}
+
+		//2. 연합이 안생기면 꺼져
+		if (unionCount-1 == (N * N)) break;
 
 		//3. 새로운 인구수 재정하기
 		for (int i = 0; i < N; i++) {
