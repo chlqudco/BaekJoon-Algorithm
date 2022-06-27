@@ -12,7 +12,6 @@ ll arr[N_SIZE];
 //구간합 트리, 원소X4 만큼 할당 필요
 ll tree[N_SIZE*4];
 
-
 //구간 합 트리 생성
 ll make_tree(int s, int e, int node) {
 	if (s == e) return tree[node] = arr[s];
@@ -60,16 +59,14 @@ void Calculate() {
 	ll a, b, c;
 	
 	for (int i = 0; i < M + K; i++) {	
-		//cout << "\n\n";
-		//for (int i = 0; i < N*4; i++) cout << tree[i] <<"  ";
-		//cout << "\n\n";
-
 		cin >> a >> b >> c;
 		if (a == 1) {
+            //b번째 원소를 c로 고치기
 			tree_update(0, N - 1, 1, b - 1, c - arr[b - 1]);
 			arr[b - 1] = c;
 		}
-		else cout << tree_sum(0, N - 1, 1, b - 1, c-1) << "\n";
+        //b번째 원소부터 c번째 원소까지의 합 구하기
+		else cout << tree_sum(0, N - 1, 1, b - 1, c - 1) << "\n";
 	}
 	
 }
