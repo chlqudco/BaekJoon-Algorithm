@@ -1,47 +1,39 @@
 #include <iostream>
-#include <vector>
+#include <algorithm>
 using namespace std;
 
 int K, N;
-vector<int> lan;
+int lan[10001] = { 0 };
 
 void Insert_And_Init() {
-	int tmp;
 	cin >> K >> N;
-	for (int i = 0; i < K; i++){
-		cin >> tmp;
-		lan.push_back(tmp);
-	}
+	for (int i = 0; i < K; i++) cin >> lan[i];
 }
 
 void Caluclate() {
-	//이분 탐색 재료
-	long long start, end, mid;
+	long long result = 0;
 
-	start = 1; end = 2147483647;
+	long long start = 1;
+	long long end = 2147483647;
 
-	long long result = 1;
+	while (start<=end){
+		//미드 설정
+		long long mid = (start + end) / 2;
 
-	while (start <= end) {
-		//자르면 총 몇개 나오는지
 		long long total = 0;
-
-		mid = (start + end) / 2;
-
-		for (int i = 0; i < K; i++) {
-			// 잘랐을 때 총 개수 저장
-			total += (lan[i] / mid);
-		}
-		// 자른 갯수가 N개보다 적으면 더 작게 잘라야 함
-		if (total < N) {
-			end = mid - 1;
-		}
-		// N개 이상이면 최대값 조사
-		else {
-			if ((result < mid)) result = mid;
+		//총 랜선 갯수 계산
+		for (int i = 0; i < K; i++) total += (lan[i] / mid);
+		
+		//충분히 챙겨 갈 수 있는 경우
+		if (total >= N) {
+			result = max(result, mid);
 			start = mid + 1;
 		}
+		else {
+			end = mid - 1;
+		}
 	}
+
 	cout << result;
 }
 
