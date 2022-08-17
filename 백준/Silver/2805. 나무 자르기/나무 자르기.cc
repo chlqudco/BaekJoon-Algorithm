@@ -1,47 +1,40 @@
 #include <iostream>
-#include <vector>
+#include <algorithm>
 using namespace std;
 
 int N, M;
-vector<int> wood;
+int tree[1000001] = { 0 };
 
 void Insert_And_Init() {
-	int tmp;
 	cin >> N >> M;
-	for (int i = 0; i < N; i++){
-		cin >> tmp;
-		wood.push_back(tmp);
-	}
+	for (int i = 0; i < N; i++) cin >> tree[i];
 }
 
 void Caluclate() {
-	//이분 탐색 재료
-	long long start, end, mid;
+	int result = 0;
 
-	start = 0; end = 2000000000;
-
-	long long result = 0;
+	int start = 0;
+	int end = 1000000000;
 
 	while (start <= end) {
-		//자르면 총 몇미터 나오는지
+		//자를 높이 설정
+		int mid = (start + end) / 2;
+
 		long long total = 0;
-
-		mid = (start + end) / 2;
-
-		for (int i = 0; i < N; i++) {
-			// 잘랐을 때 총 개수 저장
-			if (wood[i] > mid) total += (wood[i] - mid);
+		//얼만큼 가져가는지
+		for (int i = 0; i < N; i++){
+			if (mid < tree[i]) total += (tree[i] - mid);
 		}
-		// 총 길이가 아쉬우면
-		if (total < M) {
-			end = mid - 1;
-		}
-		// 많이 잘랐으면 저장
+
+		//더 높은 높이가 필요하면 start를 조정
+		if (total < M) end = mid - 1;
+		//아니면 최대 높이 저장
 		else {
-			if (result < mid) result = mid;
+			result = max(mid, result);
 			start = mid + 1;
 		}
 	}
+
 	cout << result;
 }
 
