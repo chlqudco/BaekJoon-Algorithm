@@ -1,124 +1,66 @@
 #include <iostream>
-#include <vector>
 #include <string>
+#include <vector>
 #include <math.h>
 
 using namespace std;
-typedef pair<int, int> p;
+
+int leftX = 0, leftY = 3, rightX = 2, rightY = 3;
 
 string solution(vector<int> numbers, string hand) {
-	p rightHand = { 3,2 };
-	p leftHang = { 3,0 };
+    string answer = "";
+	int num_size = numbers.size();
 
-	bool isRightHand = false;
-	string answer = "";
-
-	if (hand == "right") isRightHand = true;
-
-	int numbers_size = numbers.size();
-	for (int i = 0; i < numbers_size; i++){
-		int curNum = numbers[i];
-		if (curNum == 1 || curNum == 4 || curNum == 7) {
+	for (int i = 0; i < num_size; i++){
+		int cur_num = numbers[i];
+		if(cur_num == 0) cur_num = 11;
+		
+		//반드시 왼손
+		if(cur_num == 1 || cur_num == 4 || cur_num == 7){
+			leftY = cur_num / 3;
+			leftX = 0;
 			answer += "L";
-			leftHang = { curNum / 3 ,0 };
 		}
-		else if (curNum == 3 || curNum == 6 || curNum == 9) {
+		//반드시 오른손
+		else if(cur_num == 3 || cur_num == 6 || cur_num == 9){
+			rightY = (cur_num / 3) - 1;
+			rightX = 2;
 			answer += "R";
-			rightHand = { curNum / 3 - 1 ,2 };
 		}
-		else {
-			int dist_r = 0;
-			int dist_l = 0;
+		else{
+			//누가 더 가까운지 계산
+			int leftDistance = (1 - leftX) + abs(leftY - cur_num / 3);
+			int rightDistance = (rightX - 1) + abs(rightY - cur_num / 3);
 
-			if (curNum == 2) {
-				dist_l = abs(leftHang.first - 0) + abs(1 - leftHang.second);
-				dist_r = abs(rightHand.first - 0) + abs(1 - rightHand.second);
-				if (dist_l == dist_r) {
-					if (isRightHand) {
-						answer += "R";
-						rightHand = { curNum / 3 ,1 };
-					}
-					else {
-						answer += "L";
-						leftHang = { curNum / 3 ,1 };
-					}
-				}
-				else if (dist_l > dist_r) {
-					answer += "R";
-					rightHand = { curNum / 3 ,1 };
-				}
-				else {
+			//둘의 거리가 같다면
+			if(leftDistance == rightDistance){
+				//왼손잡이면
+				if (hand == "left"){
+					leftX = 1;
+					leftY = cur_num / 3;
 					answer += "L";
-					leftHang = { curNum / 3 ,1 };
+				}
+				else{
+					rightX = 1;
+					rightY = cur_num / 3;
+					answer += "R";
 				}
 			}
-			else if(curNum == 5) {
-				dist_l = abs(leftHang.first - 1) + abs(1 - leftHang.second);
-				dist_r = abs(rightHand.first - 1) + abs(1 - rightHand.second);
-				if (dist_l == dist_r) {
-					if (isRightHand) {
-						answer += "R";
-						rightHand = { curNum / 3 ,1 };
-					}
-					else {
-						answer += "L";
-						leftHang = { curNum / 3 ,1 };
-					}
-				}
-				else if (dist_l > dist_r) {
-					answer += "R";
-					rightHand = { curNum / 3 ,1 };
-				}
-				else {
+			//거리가 다른 경우
+			else{
+				if(leftDistance < rightDistance){
+					leftX = 1;
+					leftY = cur_num / 3;
 					answer += "L";
-					leftHang = { curNum / 3 ,1 };
 				}
-			}
-			else if (curNum == 8) {
-				dist_l = abs(leftHang.first - 2) + abs(1 - leftHang.second);
-				dist_r = abs(rightHand.first - 2) + abs(1 - rightHand.second);
-				if (dist_l == dist_r) {
-					if (isRightHand) {
-						answer += "R";
-						rightHand = { curNum / 3 ,1 };
-					}
-					else {
-						answer += "L";
-						leftHang = { curNum / 3 ,1 };
-					}
-				}
-				else if (dist_l > dist_r) {
+				else{
+					rightX = 1;
+					rightY = cur_num / 3;
 					answer += "R";
-					rightHand = { curNum / 3 ,1 };
-				}
-				else {
-					answer += "L";
-					leftHang = { curNum / 3 ,1 };
-				}
-			}
-			else {
-				dist_l = abs(leftHang.first - 3) + abs(1 - leftHang.second);
-				dist_r = abs(rightHand.first - 3) + abs(1 - rightHand.second);
-				if (dist_l == dist_r) {
-					if (isRightHand) {
-						answer += "R";
-						rightHand = { 3 ,1 };
-					}
-					else {
-						answer += "L";
-						leftHang = {3 ,1 };
-					}
-				}
-				else if (dist_l > dist_r) {
-					answer += "R";
-					rightHand = { 3 ,1 };
-				}
-				else {
-					answer += "L";
-					leftHang = { 3 ,1 };
 				}
 			}
 		}
 	}
-	return answer;
+	
+    return answer;
 }
