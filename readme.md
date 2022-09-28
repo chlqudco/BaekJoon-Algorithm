@@ -1,137 +1,139 @@
 ---
-시간 복잡도 정리
+- 시간 복잡도 정리
+	- 시간 제한이 1초 일 때
+	- N <= 500   -> O(N^3) 까지 가능
+	- N <= 2,000 -> O(N^2) 까지 가능
+	- N <= 100,000  -> O(NlogN) 까지 가능
+	- N <= 10,000,000  -> O(N) 까지 가능
 
-시간 제한이 1초 일 때
-
-N <= 500   -> O(N^3) 까지 가능
-N <= 2,000 -> O(N^2) 까지 가능
-N <= 100,000  -> O(NlogN) 까지 가능
-N <= 10,000,000  -> O(N) 까지 가능
-
-int형 변수 10,000,000개 --> 40MB
+- int형 변수 10,000,000개 --> 40MB
 
 ---
--STL 정리
--뒤부터 순회할땐 역반복자 사용해보기
--같은? 자료구조 형식(선형, 트리형) 컨테이너는 비슷한 함수를 갖고 있음 
--많은 컨테이너들은 생성시에 (숫자,숫자)를 써서 초기화가 됨
+- STL 정리
+- 뒤부터 순회할땐 역반복자 사용해보기
+- 같은? 자료구조 형식(선형, 트리형) 컨테이너는 비슷한 함수를 갖고 있음 
+- 많은 컨테이너들은 생성시에 (숫자,숫자)를 써서 초기화가 됨
 
 
 0. 연관 컨테이너 : set, multiset, map, multimap
-	-노드 기반, 균형 이진트리, 멤버 변수, 생성자가 다 비슷
+	- 노드 기반, 균형 이진트리, 멤버 변수, 생성자가 다 비슷
 
 
 1. set 컨테이너 : #include <set> a
-	-생성 : set<자료형> s;
-	-원소는 중복이 허용되지 않음
-	-자동 정렬, default 는 오름차순, 내림차순 하고 싶으면 set<string,greater<string>> s;
-	-중위 순회 하면 오름차순으로 순회 가능 (iterator 사용)
-	-s.clear() : 모든 원소 제거
-	-s.count(원소) : 있으면 1, 없으면 0
-	-삽입 : s.insert(원소)
-	-삭제 : s.erase(iter) : iter가 가르키는 원소 제거
-	-조회? : s.lower_bound(원소) : 원소가 시작하는 구간의 iter리턴?
+	- 생성 : set<자료형> s;
+	- 원소는 중복이 허용되지 않음
+	- 자동 정렬, default 는 오름차순, 내림차순 하고 싶으면 set<string,greater<string>> s;
+	- 중위 순회 하면 오름차순으로 순회 가능 (iterator 사용)
+	- s.clear() : 모든 원소 제거
+	- s.count(원소) : 있으면 1, 없으면 0
+	- 삽입 : s.insert(원소)
+	- 삭제 : s.erase(iter) : iter가 가르키는 원소 제거
+	- 조회? : s.lower_bound(원소) : 원소가 시작하는 구간의 iter리턴?
 
 
 2. list 컨테이너 : include<list>            https://blockdmask.tistory.com/76
-	-양방향 연결리스트 방식
-	-생성 : list<데이터 타입> 변수이름
-		-변수 이름 옆에(숫자) 쓰면 숫자만큼 0으로 초기화된 원소 가짐
+	- 양방향 연결리스트 방식
+	- 생성 : list<데이터 타입> 변수이름
+		- 변수 이름 옆에(숫자) 쓰면 숫자만큼 0으로 초기화된 원소 가짐
 		- 변수 이름 옆에(숫자, 숫자2) 쓰면 숫자만큼 숫자2로 초기화된 원소 가짐
-	-접근 : at이나 []로 접근 불가능, 반복자로 ++ or -- 해야됨
-	-삽입 : push 백 or front, insert(반복자,원소)..? 불편
-	-삭제 : remove(원소) : 값 원소 다삭제
-		-erase(반복자) : 반복자가 가리키는 원소 삭제..? 뭔말?
-	-이외
-		-정렬 : sort() : 오름차순 정렬
-		-크기반환 : size()
-		-뒤집기 : reverse()
+	- 접근 : at이나 []로 접근 불가능, 반복자로 ++ or -- 해야됨
+	- 삽입 : push 백 or front, insert(반복자,원소)..? 불편
+	- 삭제 : remove(원소) : 값 원소 다삭제
+		- erase(반복자) : 반복자가 가리키는 원소 삭제..? 뭔말?
+	- 이외
+		- 정렬 : sort() : 오름차순 정렬
+		- 크기반환 : size()
+		- 뒤집기 : reverse()
 
 
 3. vector 컨테이너 : include<vector>
-	-메모리가 자동으로 할당되는 배열
-	-배열기반이라 중간에서 하는 삽입-삭제는 비효율적
-	-생성 : vector<데이터 타입> 변수이름
-		-변수 이름 옆에(숫자) 쓰면 숫자만큼 0으로 초기화된 원소 가짐
+	- 메모리가 자동으로 할당되는 배열
+	- 배열기반이라 중간에서 하는 삽입-삭제는 비효율적
+	- 생성 : vector<데이터 타입> 변수이름
+		- 변수 이름 옆에(숫자) 쓰면 숫자만큼 0으로 초기화된 원소 가짐
 		- 변수 이름 옆에(숫자, 숫자2) 쓰면 숫자만큼 숫자2로 초기화된 원소 가짐
-	-접근 : 벡터.at(인덱스) 로 인덱스의 멤버 접근 가능
-		-벡터[인덱스]랑 똑같
-		-벡터.front() 나 벡터.back() 가능
-	-삽입 : 공식적으론 뒤로만 삽입 가능 
-		-중간에 넣기 : v.insert(idx,value) : idx위치에 밸류값 넣기
-	-삭제 : 공식적으론 뒤로만 삭제 가능
-		-중간값? 삭제 : v.erase(iter) : iter가 가르키는 원소 제거
+	- 접근 : 벡터.at(인덱스) 로 인덱스의 멤버 접근 가능
+		- 벡터[인덱스]랑 똑같
+		- 벡터.front() 나 벡터.back() 가능
+	- 삽입 : 공식적으론 뒤로만 삽입 가능 
+		- 중간에 넣기 : v.insert(idx,value) : idx위치에 밸류값 넣기
+	- 삭제 : 공식적으론 뒤로만 삭제 가능
+		- 중간값? 삭제 : v.erase(iter) : iter가 가르키는 원소 제거
 
 
 4. deque 컨테이너 : #include <deque>
-	-벡터와 비슷한데 더 편리하다는 평가, 벡터를 쓸빠엔 deque를 쓰나? 아니지?
-	-생성 : deque<자료형> dq;
-	-초기화? : dq.assign(a,b) : b값으로 a개 원소 할당
-	-참조 : dq.at(인덱스) or dq[인덱스] : 참조 개꿀띠!
-	-참조 : dq.front() or dq.back()
-	-올삭제! : dq.clear()
-	-삽입 : dq.push_front(원소), dq.push_back(원소) or insert
-	-제거 : dq.pop_front() or dq.pop_back() or erase
-	-iter는 begin, rbegin다 됨
+	- 벡터와 비슷한데 더 편리하다는 평가, 벡터를 쓸빠엔 deque를 쓰나? 아니지?
+	- 생성 : deque<자료형> dq;
+	- 초기화? : dq.assign(a,b) : b값으로 a개 원소 할당
+	- 참조 : dq.at(인덱스) or dq[인덱스] : 참조 개꿀띠!
+	- 참조 : dq.front() or dq.back()
+	- 올삭제! : dq.clear()
+	- 삽입 : dq.push_front(원소), dq.push_back(원소) or insert
+	- 제거 : dq.pop_front() or dq.pop_back() or erase
+	- iter는 begin, rbegin다 됨
 
 
 5. map 컨테이너 : #include<map>
-	-생성 : map<자료형,자료형> m
-	-key와 value가 쌍으로 저장되는 컨테이너
-	-key는 중복이 불가능
-	-key는 자동정렬(오름차순)
-	-삽입 : m.insert(make_pair(원소1,원소2))
-	         m[key] = value 로도 삽입 and 수정 가능
-	-함수는 set과 동일
+	- 생성 : map<자료형,자료형> m
+	- key와 value가 쌍으로 저장되는 컨테이너
+	- key는 중복이 불가능
+	- key는 자동정렬(오름차순)
+	- 삽입 : m.insert(make_pair(원소1,원소2))
+	         - m[key] = value 로도 삽입 and 수정 가능
+	- 함수는 set과 동일
 
 
 6. queue 컨테이너 : #include <queue>
-	-생성 : queue<자료형> que;
-	-FIFO(First In First Out) 구조
-	-삽입 : que.push(원소) 하면 맨뒤에 추가
-	-삭제 : que.pop() 하면 맨앞 삭제
-	-조회 : que.front(), que.back() 둘다 됨
-	-iter못씀ㅋㅋ 도대체 왜쓰냐 얘는
+	- 생성 : queue<자료형> que;
+	- FIFO(First In First Out) 구조
+	- 삽입 : que.push(원소) 하면 맨뒤에 추가
+	- 삭제 : que.pop() 하면 맨앞 삭제
+	- 조회 : que.front(), que.back() 둘다 됨
+	- iter못씀ㅋㅋ 도대체 왜쓰냐 얘는
 
 
 7. stack 컨테이너 : #include <stack>
-	-생성 : stack<자료형> st;
-	-LIFO(Last in First out) 방식
-	-삽입 : st.push(원소)
-	-삭제 : st.pop()
+	- 생성 : stack<자료형> st;
+	- LIFO(Last in First out) 방식
+	- 삽입 : st.push(원소)
+	- 삭제 : st.pop()
 
 
 8. multiset 컨테이너 : #include<set>
-	-생성 : multiset<자료형> ms
-	-키값이 중복이 되는 setㅎㅎ; 뭐지
-	-나머지 함수는 set이랑 다 똑같
+	- 생성 : multiset<자료형> ms
+	- 키값이 중복이 되는 setㅎㅎ; 뭐지
+	- 나머지 함수는 set이랑 다 똑같
 
 
 
 9. multimap 컨테이너 : #include<map>
-	-생성 : multimap<자료형1, 자료형2> mm
-	-map이랑 다똑같은데 key값이 중복이 됨
+	- 생성 : multimap<자료형1, 자료형2> mm
+	- map이랑 다똑같은데 key값이 중복이 됨
 
 
 
 999. priority_queue 컨테이너 : #include<queue>
-	-기본 값은 최대힙
+	- 기본 값은 최대힙
 
-	-생성 : priority_queue< 자료형, vector<자료형>, (비교함수) > pq;
-	-비교함수
+	- 생성 : priority_queue< 자료형, vector<자료형>, (비교함수) > pq;
+	- 비교함수
 		- greater<int>는 내림차순
 		- less<int>는 오름차순
-		- 직접 만들기 struct compare
+		- 직접 만들기
+		
+		```
+		struct compare
 			{
 				bool operator()(구조체& a, 구조체& b) {
 					if (a.C != b.C) return a.C < b.C;
 					return a.S > b.S;
 				}
 			};
+		```
 
 		- 간단하게 구현한 비교함수 bool cmp(T a, T b){return a < b;}
-	-야매 팁
-		-넣을때 -를 이용하면 어디선가 쓸모가 있다
+	- 야매 팁
+		- 넣을때 -를 이용하면 어디선가 쓸모가 있다
 
 ---
 - 헤더 정리
@@ -139,7 +141,7 @@ int형 변수 10,000,000개 --> 40MB
 ** iter1 과 iter2는 배열에서는 배열, 배열+크기 로 고쳐쓸 수 있다.
 
 1. algorithm 라이브러리
-	-find (iter1, iter2, value): iter1과 2 사이에 value값이 있으면 첫번째 값의 iter반환
+	- find (iter1, iter2, value): iter1과 2 사이에 value값이 있으면 첫번째 값의 iter반환
 		-ex)	int myints[] = {10, 20, 30, 40};
 			int* p;
 
@@ -159,11 +161,11 @@ int형 변수 10,000,000개 --> 40MB
 			else
 				std::cout << "Element not found in myvector\n";
 
-		-ex2) if(s.find(6)!=s.end())
+		- ex2) if(s.find(6)!=s.end())
 
-		-find_if는 조건을 줄 수도 있음
+		- find_if는 조건을 줄 수도 있음
 
-	-count(iter1, iter2, value) : iter1과 2 사이에 있는 value의 개수
+	- count(iter1, iter2, value) : iter1과 2 사이에 있는 value의 개수
 		-ex)	int myints[] = {10, 20, 30, 30, 20, 10, 10, 20};  // 8 elements
 			int mycount = std::count(myints, myints + 8, 10);
 			std::cout << "10 은 " << mycount << " 번 등장합니다.\n";
@@ -171,16 +173,16 @@ int형 변수 10,000,000개 --> 40MB
 			// 컨테이너 안에 특정 원소의 개수를 셉니다.
 			std::vector<int> myvector(myints, myints + 8);
 			mycount = std::count(myvector.begin(), myvector.end(), 20);
-		-count_if는 조건을 줄 수도 있음
+		- count_if는 조건을 줄 수도 있음
 
-	-swap(v1, v2) : 두 원소를 교환
-	-iter_swap(i1, i2) : 두 반복자가 가르키는 원소를 교환
+	- swap(v1, v2) : 두 원소를 교환
+	- iter_swap(i1, i2) : 두 반복자가 가르키는 원소를 교환
 
-	-replace(iter1, iter2, v1, v2) : iter1과 2 사이에 v1인 값을 v2로 변환
-		-ex)  replace(s.begin(), s.end(), 8, 88);
+	- replace(iter1, iter2, v1, v2) : iter1과 2 사이에 v1인 값을 v2로 변환
+		- ex)  replace(s.begin(), s.end(), 8, 88);
 
-	-fill(iter1, iter2, v1) :  iter1과 2 사이 값을 모두 v1로 바꿈
-		-ex) fill(myvector.begin(), myvector.begin() + 4, 5);
+	- fill(iter1, iter2, v1) :  iter1과 2 사이 값을 모두 v1로 바꿈
+		- ex) fill(myvector.begin(), myvector.begin() + 4, 5);
 
 	-remove(iter1, iter2, v1) : iter1과 2 사이 v1값을 모두 맨뒤로 보내버림
 		-실제로 지우려면 erase랑 같이  써야됨
@@ -192,26 +194,26 @@ int형 변수 10,000,000개 --> 40MB
 		-ex) erase(unique(v.begin(), v.end()) , v.end()) : 중복 제거
 	
 
-	-reverse(?1, ?2) : ?1부터 ?2까지 뒤집음
-		-ex)	std::vector<int> v{1, 2, 3};
+	- reverse(?1, ?2) : ?1부터 ?2까지 뒤집음
+		- ex)	std::vector<int> v{1, 2, 3};
 			std::reverse(std::begin(v), std::end(v));
 
 			int a[] = {4, 5, 6, 7};
 			std::reverse(std::begin(a), std::end(a));
 
 
-	-sort(iter1, iter2) : 오룸차순으로 정렬!
-		-ex)	std::array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
+	- sort(iter1, iter2) : 오룸차순으로 정렬!
+		- ex)	std::array<int, 10> s = {5, 7, 4, 2, 8, 6, 1, 9, 0, 3};
 			std::sort(s.begin(), s.end())
 
 			//내림차순이 하고싶오?
 			 std::sort(s.begin(), s.end(), std::greater<int>());
-		-객체 정렬은 몰라~ 검색해~
+		- 객체 정렬은 몰라~ 검색해~
 
-	-stable_sort(iter1, iter2) : 안정정렬, 사용방법은 검색 ㅎㅎ;;
+	- stable_sort(iter1, iter2) : 안정정렬, 사용방법은 검색 ㅎㅎ;;
 
-	-nth_element(iter1, n? , iter2) : n번째? 원소 찾기
-		-ex)	std::vector<int> v{5, 6, 4, 3, 2, 6, 7, 9, 3};
+	- nth_element(iter1, n? , iter2) : n번째? 원소 찾기
+		- ex)	std::vector<int> v{5, 6, 4, 3, 2, 6, 7, 9, 3};
 
 			std::nth_element(v.begin(), v.begin() + v.size() / 2, v.end());
 			std::cout << "중간값은 " << v[v.size() / 2] << '\n';
@@ -219,39 +221,39 @@ int형 변수 10,000,000개 --> 40MB
 			std::nth_element(v.begin(), v.begin() + 1, v.end(), std::greater<int>());
 			std::cout << "두 번째로 큰 원소는 " << v[1] << '\n';
 
-	-정렬된 원소들에 대해 작동하는 함수
-		-lower_bound(iter1, iter2, v1) : v1 보다 크거나 같은 첫번째 원소의 인덱스 리턴,
-		-upper_bound(iter1, iter2, v1) : v1보다 큰 첫번째 원소의 인덱스 리턴
-		-binary_search(iter1, iter2, v1) : v1값이 있는지 이진탐색, 있으면 true, 없으면 false
+	- 정렬된 원소들에 대해 작동하는 함수
+		- lower_bound(iter1, iter2, v1) : v1 보다 크거나 같은 첫번째 원소의 인덱스 리턴,
+		- upper_bound(iter1, iter2, v1) : v1보다 큰 첫번째 원소의 인덱스 리턴
+		- binary_search(iter1, iter2, v1) : v1값이 있는지 이진탐색, 있으면 true, 없으면 false
 
-	-set_union : 두 정렬된 원소의 합집합 반환, ㅇ떻게 쓰는지 모름
+	- set_union : 두 정렬된 원소의 합집합 반환, ㅇ떻게 쓰는지 모름
 
-	-min : 최소값 찾음, 어덯게..?
-	-min_element : 최소값 원소의 반복자를 리턴
-	-*max_element(arr, arr+size) 같이 접근하면 편하지
+	- min : 최소값 찾음, 어덯게..?
+	- min_element : 최소값 원소의 반복자를 리턴
+	- *max_element(arr, arr+size) 같이 접근하면 편하지
 
-	-배열 합치는 알고리즘
-		-int a[] = {1, 4, 5, 5, 8};
+	- 배열 합치는 알고리즘
+		- int a[] = {1, 4, 5, 5, 8};
 		 int b[] = {2, 3, 4, 7, 9};
 		 vector<int> result(10);
 	
-		-merge(a,a+5,b,b+5,result.begin()) : a,b 합쳐서 result에 저장
-		-iter=set_union(인자 위랑 같음) : 중복원소 없이 a,b 합침
-		-iter=set_intersection : 교집합
-		-iter=set_difference() : 차집합
+		- merge(a,a+5,b,b+5,result.begin()) : a,b 합쳐서 result에 저장
+		- iter=set_union(인자 위랑 같음) : 중복원소 없이 a,b 합침
+		- iter=set_intersection : 교집합
+		- iter=set_difference() : 차집합
 		
-		-set으로 시작하는 함수는 사이즈 교정 해줘야함 : result.resize(iter - result.begin());
+		- set으로 시작하는 함수는 사이즈 교정 해줘야함 : result.resize(iter - result.begin());
 			-set으로 시작하는 함수는 iter 반환
 
-	-배열 나누는 알고리즘
-		-참이면 앞쪽, 거짓이면 뒤쪽으로 보냄
-		-예시로는 홀수 짝수 나누기
-		-재료 : 함수 : bool isOdd(int n){ return n%2==1; }
+	- 배열 나누는 알고리즘
+		- 참이면 앞쪽, 거짓이면 뒤쪽으로 보냄
+		- 예시로는 홀수 짝수 나누기
+		- 재료 : 함수 : bool isOdd(int n){ return n%2==1; }
 		       : 배열 : int a[10] = {1, 2, 4, 5, 3, 6, 8, 5, 7, 9};
-		-int *p = partition(a, a+10, isOdd);
-		-참인애들 접근 for(int i=0; i<p-a; i++), 거짓인애들 접근 for(int i=p-a; i<10; i++)
+		- int *p = partition(a, a+10, isOdd);
+		- 참인애들 접근 for(int i=0; i<p-a; i++), 거짓인애들 접근 for(int i=p-a; i<10; i++)
 
-	-조건에 맞는 모든 값을 특정한 값으로 바꿈 replace_if(), replace_if(a, a+10, isOdd, 7);
+	- 조건에 맞는 모든 값을 특정한 값으로 바꿈 replace_if(), replace_if(a, a+10, isOdd, 7);
 
 
 	
@@ -268,21 +270,21 @@ int형 변수 10,000,000개 --> 40MB
 
 
 3. 야매? 팁
-	-붙어있는 숫자를 한글자식 끊어서 저장 scanf("%1d", &arr[i][j]);
+	- 붙어있는 숫자를 한글자식 끊어서 저장 scanf("%1d", &arr[i][j]);
 
-	-한줄 입력 받기 ; string헤더 넣고, getline(cin, str);
+	- 한줄 입력 받기 ; string헤더 넣고, getline(cin, str);
 
-	-memset(배열, 0, sizeof(배열)) : 배열 0으로 초기화 
-		-string.h 헤더 필요
+	- memset(배열, 0, sizeof(배열)) : 배열 0으로 초기화 
+		- string.h 헤더 필요
 
-	-정렬 문제는 pq도 좋지만 lowe_bound를 잘 이용하자
+	- 정렬 문제는 pq도 좋지만 lowe_bound를 잘 이용하자
 
 
 ---
 - 알고리즘 정리
 
 - 그리디
--당장 눈앞의 이익에만 집중
+- 당장 눈앞의 이익에만 집중
 1. 특정 조건으로 정렬해두면 구현이 쉬워지는 경우가 많다.
 2. 많은 그리디는 동적플밍으로 풀수 있다.
 
@@ -292,8 +294,8 @@ int형 변수 10,000,000개 --> 40MB
 2. 최적 부분 구조 : 각 단계에서 최적선택을 했을때 전체 최적해를 구할 수 있는지
 
 
--그리디를 써도 되는지에 대한 정당성을 입증 해야 함
-	-ex) 거스름돈 문제는 작은 단위의 동전이 큰 단위의 배수 이므로 정당함
+- 그리디를 써도 되는지에 대한 정당성을 입증 해야 함
+	- ex) 거스름돈 문제는 작은 단위의 동전이 큰 단위의 배수 이므로 정당함
 2839 설탕배달 : 5의 배수 될때까지 3 존나게 빼기
 11399 ATM : 금방 끝나는 애부터 돈뽑기
 11047 동전0 : 큰 가치 동전부터 존나 더하기
@@ -345,14 +347,14 @@ int형 변수 10,000,000개 --> 40MB
 	}
 cout << result << '\n'
 
--배열 or 이진탐색트리
+- 배열 or 이진탐색트리
 
--말도 안되게 큰 수를 보면 이진 탐색을 의심해야함
+- 말도 안되게 큰 수를 보면 이진 탐색을 의심해야함
 
--뭐를 start, end, mid로 잡을지만 파악하면 문제가 너무 간단해짐
+- 뭐를 start, end, mid로 잡을지만 파악하면 문제가 너무 간단해짐
 
--간단하게 값만 찾으려면 걍 binary_search 함수 검색
-	-binary_search(A, A + N, target) : 있으면 1 반환
+- 간단하게 값만 찾으려면 걍 binary_search 함수 검색
+	- binary_search(A, A + N, target) : 있으면 1 반환
 
 ---  
 
@@ -364,6 +366,7 @@ cout << result << '\n'
 
 트리 크기는 데이터 개수 * 4 해야함
 
+```
 //구간 합 트리 생성
 int make_tree(int s, int e, int node) {
 	if (s == e) return tree[node] = arr[s];
@@ -400,6 +403,8 @@ void tree_update(int s, int e, int node, int index, int dif) {
 	tree_update(s, mid, node * 2, index, dif);
 	tree_update(mid + 1, e, node * 2 + 1, index, dif);
 }
+
+```
 
 ---
 - DP
