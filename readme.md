@@ -8,6 +8,12 @@
 
 - int형 변수 10,000,000개 --> 40MB
 
+-  for (int number : fibonacci)
+	std::cout << number << ' ';
+
+- for (auto number : fibonacci)
+        std::cout << number << ' ';
+
 ---
 - STL 정리
 - 뒤부터 순회할땐 역반복자 사용해보기
