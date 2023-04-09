@@ -1,0 +1,12 @@
+입력
+fun main() = with(System.`in`.bufferedReader()) {
+	// 정수 하나 읽기
+	val num = readLine().toInt()
+    
+	// 공백 기준으로 읽기
+	val nums = readLine().split(" ").map { it.toInt() }
+    
+	// 문자열 을 char 배열로 받기
+	val char = readLine().toCharArray
+}
+
