@@ -1,3 +1,7 @@
+- 2차원 배열
+lateinit var dist: Array<IntArray>
+dist = Array(n) { IntArray(m) }
+
 
 ================================================================================================
 
@@ -28,6 +32,7 @@ fun main(args: Array<String>) = with(BufferedReader(InputStreamReader(System.`in
 
 
 ================================================================================================
+
 
 문자열 처리
 fun main() {
