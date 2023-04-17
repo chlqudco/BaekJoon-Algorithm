@@ -2,6 +2,46 @@
 lateinit var dist: Array<IntArray>
 dist = Array(n) { IntArray(m) }
 
+val A = Array(101) { IntArray(101) { 초기값 넣고 싶으면 지정 } }
+
+- 배열 선언하고 인덱스 값으로 초기화
+val basket = IntArray(101) { it }
+
+//
+
+var N: Int = 0
+var M: Int = 0
+val basket = IntArray(101) { it }
+
+fun insertAndInit(){
+
+    val line = readln().split(" ").map { it.toInt() }
+    N = line[0]
+    M = line[1]
+}
+
+fun calculate(){
+
+    repeat(M) {
+        val (i, j) = readln().split(" ").map { it.toInt() }
+        basket.reverse(i, j + 1)
+    }
+
+    repeat(N) {
+        print("${basket[it + 1]} ")
+    }
+}
+
+fun main() = with(System.`in`.bufferedReader()) {
+
+    insertAndInit()
+
+    calculate()
+
+}
+
+//
+
 
 ================================================================================================
 
