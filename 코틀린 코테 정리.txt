@@ -7,6 +7,19 @@ val A = Array(101) { IntArray(101) { 초기값 넣고 싶으면 지정 } }
 - 배열 선언하고 인덱스 값으로 초기화
 val basket = IntArray(101) { it }
 
+
+// dfs bfs 재료
+val graph = Array(1001) { mutableListOf<Int>() }
+
+val visited = BooleanArray(1001)
+visited.fill(false)
+
+val dx = intArrayOf(1, -1, 0, 0)
+val dy = intArrayOf(0, 0, 1, -1)
+
+val que = mutableListOf<Int>()
+val cur = que.removeFirst()
+
 //
 
 var N: Int = 0
