@@ -55,6 +55,94 @@ fun main() = with(System.`in`.bufferedReader()) {
 
 //
 
+다익스트라
+
+import java.util.PriorityQueue
+
+var V = 0
+var E = 0
+var K = 0
+
+// 다익스트라
+const val INF = 987654321
+val graph = Array(20001) { mutableListOf<Node>() }
+val cost = IntArray(20001) { INF }
+
+data class Node(
+    val idx: Int,
+    val weight: Int
+)
+
+fun insertAndInit() {
+
+    val input = readln().split(" ").map { it.toInt() }
+    V = input[0]; E = input[1]
+    K = readln().toInt()
+
+    // 간선 입력
+    repeat(E) {
+        val (u, v, w) = readln().split(" ").map { it.toInt() }
+        graph[u].add(Node(v, w))
+    }
+
+    cost[K] = 0
+}
+
+fun dijkstra() {
+
+    // 우선순위 큐
+    val pq = PriorityQueue<Node> { a, b -> a.weight - b.weight }
+
+    // 자기 자신은 거리 0
+    pq.add(Node(K, 0))
+
+    // 큐가 빌때까지
+    while (!pq.isEmpty()) {
+
+        // 무게가 제일 작은 노드 하나 꺼내기
+        val curNode = pq.remove()
+
+        // 현재 뽑은 거리가 최단경로가 아니면 다음 간선 보기
+        if (curNode.weight > cost[curNode.idx]) continue
+
+        // 현재 노드에 연결된 선분을 조회하며
+        graph[curNode.idx].forEach { value ->
+
+            // 최단경로면 갱신
+            if (cost[value.idx] > curNode.weight + value.weight) {
+                cost[value.idx] = curNode.weight + value.weight
+                pq.add(Node(value.idx, curNode.weight + value.weight))
+            }
+        }
+    }
+
+}
+
+fun calculate() {
+
+    // 다익스트라 실행
+    dijkstra()
+
+    // 최단 경로 출력
+    repeat(V) {
+        if (cost[it + 1] == INF) {
+            println("INF")
+        } else {
+            println(cost[it + 1])
+        }
+    }
+}
+
+
+fun main() = with(System.`in`.bufferedReader()) {
+
+    insertAndInit()
+
+    calculate()
+}
+
+//
+
 var aNum = 0
 var bNum = 0
 
