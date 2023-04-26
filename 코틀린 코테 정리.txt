@@ -1,3 +1,10 @@
+입출력
+val answer = StringBuilder()
+answer.append()
+print(answer.toString())
+
+========================================
+
 - 2차원 배열
 lateinit var dist: Array<IntArray>
 dist = Array(n) { IntArray(m) }
