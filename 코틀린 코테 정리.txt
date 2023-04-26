@@ -118,30 +118,24 @@ fun dijkstra() {
 
 }
 
-fun calculate() {
+//
 
-    // 다익스트라 실행
-    dijkstra()
+플로이드 워셔
 
-    // 최단 경로 출력
-    repeat(V) {
-        if (cost[it + 1] == INF) {
-            println("INF")
-        } else {
-            println(cost[it + 1])
+// 인접 행렬
+val graph = Array(101) { IntArray(101) { 987654321 } }
+
+초기화 할때 graph에 간선의 젤 작은 값 넣기
+
+    // 플로이드 워셔
+    repeat(N) { i ->
+        repeat(N) { j ->
+            repeat(N) { k ->
+                graph[j][k] = min(graph[j][k], graph[j][i] + graph[i][k])
+            }
         }
     }
-}
 
-
-fun main() = with(System.`in`.bufferedReader()) {
-
-    insertAndInit()
-
-    calculate()
-}
-
-//
 
 var aNum = 0
 var bNum = 0
