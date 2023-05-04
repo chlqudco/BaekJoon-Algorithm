@@ -153,6 +153,10 @@ ORDER BY AGE DESC,
 PT_NAME
 
 
+배운것
+  - ORDER BY 쓰면 정렬을 할 수 있다. DESC는 내림차순이다
+  - IFNULL을 사용하면 널일 경우의 대체값을 지정할 수 있다.
+
 ===============
 
 
@@ -165,6 +169,12 @@ WHERE MONTH(DATE_OF_BIRTH) = 3
 AND GENDER = 'W'
 AND TLNO IS NOT NULL
 ORDER BY MEMBER_ID
+
+
+배운것 
+  - MONTH를 통해 달을 가져올 수 있다.
+  - DATE_FORMAT을 통해 원하는 형식으로 날짜를 출력할 수 있다
+  - IS NOT NULL을 통해 널이 아닌 값만 가져올 수 있다
 
 
 =================
@@ -186,6 +196,10 @@ WHERE A.TOTAL_ORDER > 3000 AND B.INGREDIENT_TYPE = "fruit_based"
 ORDER BY TOTAL_ORDER DESC
 
 
+배운 것
+  - JOIN을 통해 두 테이블을 합칠 수 있다
+  - , 와는 무슨 차이 인지 아직 모르겠다.
+  - , 를 쓰면 반드시 A.값 = B.값을 해야 한다. 조인은 걍 합집합이고 ,는 모든 경우를 다 만드나 보다.
 
 =================
 
@@ -197,10 +211,25 @@ FROM CAR_RENTAL_COMPANY_CAR
 WHERE CAR_TYPE = "SUV"
 
 
+배운점
+  - 여러 수학 공식이 많다. ROUND도 있고 AVG도 있고
+
+
 =================
 
+REST_INFO와 REST_REVIEW 테이블에서 서울에 위치한 식당들의 식당 ID, 식당 이름, 음식 종류, 즐겨찾기수, 주소, 리뷰 평균 점수를 조회하는 SQL문을 작성해주세요. 이때 리뷰 평균점수는 소수점 세 번째 자리에서 반올림 해주시고 결과는 평균점수를 기준으로 내림차순 정렬해주시고, 평균점수가 같다면 즐겨찾기수를 기준으로 내림차순 정렬해주세요.
+
+SELECT A.REST_ID, A.REST_NAME, A.FOOD_TYPE, A.FAVORITES, A.ADDRESS, ROUND(AVG(B.REVIEW_SCORE), 2) AS SCORE
+FROM REST_INFO A, REST_REVIEW B
+WHERE A.REST_ID = B.REST_ID AND A.ADDRESS LIKE "서울%" 
+GROUP BY A.REST_ID
+ORDER BY SCORE DESC, A.FAVORITES DESC
 
 
+배운점
+  - ,를 쓸 때 A.값 = B.값 잊지 말자
+  - LIKE를 통해 적절한 검색을 할 수 있다
+  - GROUP BY를 하면 원하는 값끼리 묶을 수 있다
 
 =================
 
