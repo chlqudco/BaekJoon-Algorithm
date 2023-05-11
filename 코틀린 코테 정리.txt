@@ -1,3 +1,18 @@
+fun insertAndInit() {
+
+}
+
+fun calculate() {
+
+}
+
+fun main() = with(System.`in`.bufferedReader()) {
+
+    insertAndInit()
+
+    calculate()
+}
+
 입출력
 val answer = StringBuilder()
 answer.append()
