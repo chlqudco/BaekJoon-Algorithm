@@ -4,7 +4,7 @@ class Solution {
         
         var num = n
         while(num > 0){
-            answer = answer + (num % 10).toInt()
+            answer += (num % 10).toInt()
             num /= 10
         }
         
