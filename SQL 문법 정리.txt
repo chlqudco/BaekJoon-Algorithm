@@ -9,7 +9,7 @@ ORDER BY 이름 DESC  -> 이름을 기준으로 내림차순
 WHERE 이름 = "조건"  -> 이름 항목이 조건인 부분만 추출
 WHERE 이름 IS NOT NULL -> 널이 아닌 것만 반환
 SELECT IFNULL(FREEZER_YN, 'N') AS FREEZER_YN  ->  널 인경우 두번째 요소 출력
-
+CASE WHEN '조건' THEN '결과1' ELSE '결과2' END -> 조건이 True면 결과1, False면 결과2
 
 
 *** 원하는 개수 출력
@@ -29,7 +29,7 @@ SELECT COUNT(이름) AS 이름 -> 이름 항목의 개수 세기
 
 
 *** 최대값 구하기
-SELECT max(이름) as MAX_PRICE  ->  이름 값 중 최대값 구하기'
+SELECT max(이름) as MAX_PRICE  ->  이름 값 중 최대값 구하기, 가장 최근의 날짜를 구할 수도 있음
 
 
 
@@ -53,13 +53,15 @@ WHERE MCDP_CD = "CS" OR MCDP_CD = "GS"  ->  위와 동일 문법
 
 *** 수학 연산
 CEIL, FLOOR, ROUND : 올림, 버림, 반올림
-SELECT ROUND(AVG(DAILY_FEE)) AS AVERAGE_FEE : 일일요금의 평균을 첫째 자리에서 반올림
+SELECT ROUND(AVG(DAILY_FEE)) AS AVERAGE_FEE : 요금의 평균을 첫째 자리에서 반올림
 
 
 
 *** 날짜 관련
 SELECT DATE_FORMAT(HIRE_YMD, "%Y-%m-%d") AS 이름  ->  포맷 맞춰서 날짜 출력
 WHERE YEAR(이름) = "2021"  -> 이름 항목이 2021년도인 항목만 취함
+DATEDIFF(끝날짜, 시작날짜) +1 >= 30 -> 두 날짜의 차이가 30일 이상인 경우
+
 
 
 
