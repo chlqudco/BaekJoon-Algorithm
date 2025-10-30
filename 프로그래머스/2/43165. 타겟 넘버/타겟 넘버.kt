@@ -1,23 +1,20 @@
 class Solution {
     var answer = 0
     
-    fun DFS(idx: Int, numbers: IntArray, target: Int, total: Int){
-        
-        // base case
-        if(numbers.size == idx){
+    fun DFS(arr: IntArray, total:Int, idx:Int, target: Int) {
+        if(idx == arr.size){
             if(total == target) answer++
             return
         }
         
-        // recur case
-        DFS(idx + 1, numbers, target, total + numbers[idx])
-        DFS(idx + 1, numbers, target, total + numbers[idx] * -1)
+        DFS(arr, total + arr[idx], idx+1, target)
+        DFS(arr, total - arr[idx], idx+1, target)
     }
     
     fun solution(numbers: IntArray, target: Int): Int {
         
-        DFS(1, numbers, target, numbers[0])
-        DFS(1, numbers, target, numbers[0] * -1)
+        DFS(numbers, numbers[0], 1, target)
+        DFS(numbers, numbers[0] * -1, 1, target)
         
         return answer
     }
